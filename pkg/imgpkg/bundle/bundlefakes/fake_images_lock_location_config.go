@@ -24,14 +24,14 @@ type FakeImagesLockLocationConfig struct {
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakeImagesLockLocationConfig) Fetch() (bundle.ImageLocationsConfig, error) {
+func (fake *FakeImagesLockLocationConfig) Config() (bundle.ImageLocationsConfig, error) {
 	fake.fetchMutex.Lock()
 	ret, specificReturn := fake.fetchReturnsOnCall[len(fake.fetchArgsForCall)]
 	fake.fetchArgsForCall = append(fake.fetchArgsForCall, struct {
 	}{})
 	stub := fake.FetchStub
 	fakeReturns := fake.fetchReturns
-	fake.recordInvocation("Fetch", []interface{}{})
+	fake.recordInvocation("Config", []interface{}{})
 	fake.fetchMutex.Unlock()
 	if stub != nil {
 		return stub()

@@ -126,11 +126,7 @@ func (o *Bundle) fetchImagesRef(img regv1.Image, logger util.LoggerWithLevels) (
 		bundleDigestRef: bundleDigestRef,
 	})
 
-	err = currentImagesLock.SyncImageRefs()
-	if err != nil {
-		return ImageRefs{}, err
-	}
-	return currentImagesLock.ImageRefs(), nil
+	return currentImagesLock.ImageRefs()
 }
 
 func (o *Bundle) imagesLockIfIsBundle(throttleReq *util.Throttle, imgRef ImageRef, processedImgs *processedImages, levels util.LoggerWithLevels) ([]*Bundle, ImageRefs, lockconfig.ImageRef, error) {
@@ -240,6 +236,6 @@ type LocationFetcher struct {
 	bundleDigestRef regname.Digest
 }
 
-func (l LocationFetcher) Fetch() (ImageLocationsConfig, error) {
+func (l LocationFetcher) Config() (ImageLocationsConfig, error) {
 	return NewLocations(l.logger).Fetch(l.imgRetriever, l.bundleDigestRef)
 }
